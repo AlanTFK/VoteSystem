@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (data.success) {
                 messageDiv.textContent = '投票成功！窗口即將關閉...';
                 await getVoteCount(); // 更新票數顯示
-                setTimeout(() => window.close(), 2000);
+                setTimeout(() => history.back(), 2000);
             } else {
                 messageDiv.textContent = '投票失敗，請重試。';
             }
