@@ -18,6 +18,10 @@ app.get('/booth/:id', (req, res) => {
   res.sendFile(__dirname + '/public/booth.html');
 });
 
+app.get('/result', (req, res) => {
+    res.sendFile(__dirname + '/public/result.html');
+});
+
 // 投票處理
 app.post('/vote', async (req, res) => {
   const { boothId } = req.body;
