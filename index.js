@@ -44,6 +44,21 @@ async function initDB() {
     console.error('Init error:', error);
   }
 }
+// 新增獲取票數的路由
+app.get('/votes/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('SELECT votes FROM booths WHERE booth_id = $1', [id]);
+        if (result.rows.length > 0) {
+            res.json({ votes: result.rows[0].votes });
+        } else {
+            res.status(404).json({ error: 'Booth not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Database error' });
+    }
+});
 
 initDB();
 

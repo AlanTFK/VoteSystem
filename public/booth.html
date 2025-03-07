@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>投票頁面</title>
+    <title>攤位投票</title>
     <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="container">
-        <h1>攤位投票</h1>
-        <button id="voteBtn">投我一票</button>
+        <div class="header">
+            <h1>攤位投票系統</h1>
+            <div class="booth-number">攤位編號：<span id="boothNumber"></span></div>
+        </div>
+        <div class="vote-section">
+            <button id="voteBtn">
+                <span class="icon">👍</span>
+                <span class="text">投我一票</span>
+            </button>
+            <div class="vote-count">目前票數：<span id="voteCount">0</span></div>
+        </div>
         <div id="message"></div>
     </div>
     <script src="/script.js"></script>

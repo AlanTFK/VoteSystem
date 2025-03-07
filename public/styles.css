@@ -1,36 +1,92 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #45a049;
+    --text-color: #333;
+    --bg-color: #f5f5f5;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    padding: 1rem;
+    background-color: var(--bg-color);
 }
 
 .container {
-    text-align: center;
+    width: 100%;
+    max-width: 400px;
     background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
-button {
-    padding: 1rem 2rem;
+.header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.booth-number {
+    margin-top: 0.5rem;
     font-size: 1.2rem;
-    background-color: #4CAF50;
+    font-weight: bold;
+}
+
+.vote-section {
+    padding: 2rem;
+    text-align: center;
+}
+
+#voteBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-button:hover {
-    background-color: #45a049;
+#voteBtn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#voteBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.vote-count {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
 }
 
 #message {
-    margin-top: 1rem;
-    color: green;
+    padding: 1rem;
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.icon {
+    font-size: 1.2rem;
 }
