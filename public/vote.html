@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>攤位投票</title>
+</head>
+<body>
+    <h1 id="booth-name">攤位名稱</h1>
+    <button id="vote-btn">投票</button>
+    <p id="message"></p>
+
+    <script>
+        // 解析 URL 取得攤位 ID
+        const urlParams = new URLSearchParams(window.location.search);
+        const boothId = urlParams.get('booth') || "未知";
+
+
+        if (!boothId) {
+            document.getElementById('message').innerText = "⚠️ 錯誤：缺少攤位 ID";
+        } else {
+            document.getElementById('booth-name').innerText = `攤位 ${boothId}`;
+        }
+
+        document.getElementById('vote-btn').addEventListener('click', async () => {
+            const response = await fetch('http://localhost:3000/api/vote', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ boothId })
+            });
+
+            const result = await response.json();
+            document.getElementById('message').innerText = result.message;
+            // 嘗試立即關閉網頁
+
+            // 如果 window.close() 無效，提供其他方法
+            setTimeout(() => {
+                history.back();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
