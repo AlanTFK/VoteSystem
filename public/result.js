@@ -1,22 +1,22 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const ctx = document.getElementById('voteChart').getContext('2d');
 
-    // 獲取所有攤位的票數
-    async function fetchVotes() {
+    // 獲取票數最高的前十名攤位
+    async function fetchTopVotes() {
         try {
-            const response = await fetch('/votes');
+            const response = await fetch('/votes/top');
             const data = await response.json();
             return data;
         } catch (error) {
-            console.error('Error fetching votes:', error);
+            console.error('Error fetching top votes:', error);
             return [];
         }
     }
 
     // 初始化圖表
-    const votes = await fetchVotes();
-    const labels = votes.map((_, index) => `攤位 ${index + 1}`);
-    const data = votes.map(booth => booth.votes);
+    const topVotes = await fetchTopVotes();
+    const labels = topVotes.map(booth => `攤位 ${booth.booth_id}`);
+    const data = topVotes.map(booth => booth.votes);
 
     new Chart(ctx, {
         type: 'bar',
@@ -37,7 +37,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             },
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: '票數最高的前十名攤位'
+                }
+            }
         }
     });
 });

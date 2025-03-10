@@ -64,15 +64,17 @@ app.get('/votes/:id', async (req, res) => {
     }
 });
 
-// 獲取所有攤位的票數
-app.get('/votes', async (req, res) => {
-    try {
-        const result = await pool.query('SELECT booth_id, votes FROM booths ORDER BY booth_id');
-        res.json(result.rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Database error' });
-    }
+// 獲取票數最高的前十名攤位
+app.get('/votes/top', async (req, res) => {
+  try {
+      const result = await pool.query(
+          'SELECT booth_id, votes FROM booths ORDER BY votes DESC LIMIT 10'
+      );
+      res.json(result.rows);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Database error' });
+  }
 });
 
 initDB();

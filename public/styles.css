@@ -93,6 +93,6 @@ body {
 
 .chart-container {
     width: 100%;
-    height: 70vh;
+    height: 80vh; /* 增加高度以容納更多資料 */
     margin-top: 1rem;
 }
