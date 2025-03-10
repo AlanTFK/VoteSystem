@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>重置投票</title>
+    <link rel="stylesheet" href="/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>管理面板 - 重置投票</h1>
+        </div>
+        <div class="vote-section">
+            <button id="resetBtn">Reset Vote</button>
+        </div>
+        <div id="message"></div>
+    </div>
+    
+    <script>
+        document.getElementById('resetBtn').addEventListener('click', async () => {
+            if (confirm('確定要重置所有投票數嗎？此操作無法撤銷！')) {
+                try {
+                    const response = await fetch('/votes/reset', { method: 'POST' });
+                    const data = await response.json();
+                    if (data.success) {
+                        document.getElementById('message').textContent = '投票數已重置成功！';
+                    } else {
+                        document.getElementById('message').textContent = '重置失敗，請重試。';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('message').textContent = '發生錯誤，請檢查伺服器。';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

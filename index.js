@@ -22,6 +22,10 @@ app.get('/result', (req, res) => {
     res.sendFile(__dirname + '/public/result.html');
 });
 
+app.get('/reset', (req, res) => {
+  res.sendFile(__dirname + '/public/reset.html');
+});
+
 // 投票處理
 app.post('/vote', async (req, res) => {
   const { boothId } = req.body;
@@ -59,6 +63,16 @@ app.get('/votes/top', async (req, res) => {
   } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.post('/votes/reset', async (req, res) => {
+  try {
+    await pool.query('UPDATE booths SET votes = 0');
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Database error' });
   }
 });
 
