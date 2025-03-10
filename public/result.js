@@ -41,7 +41,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             plugins: {
                 title: {
                     display: true,
-                    text: '票數最高的前十名攤位'
+                    text: '票數最高的前十名攤位',
+                    font: {
+                        size: 16
+                    }
                 }
             }
         }

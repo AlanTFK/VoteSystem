@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await response.json();
             if (data.success) {
                 messageDiv.textContent = '投票成功！窗口即將關閉...';
-                await getVoteCount(); // 更新票數顯示
                 setTimeout(() => history.back(), 2000);
                 setTimeout(() => window.close(), 2000);
             } else {
