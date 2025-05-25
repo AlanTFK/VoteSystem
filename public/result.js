@@ -1,3 +1,16 @@
+const colors = [
+    '#FFD700', // 金
+    '#C0C0C0', // 銀
+    '#CD7F32', // 銅
+    '#4CAF50',
+    '#66BB6A',
+    '#81C784',
+    '#A5D6A7',
+    '#C8E6C9',
+    '#E8F5E9',
+    '#F1F8E9'
+];
+
 document.addEventListener('DOMContentLoaded', async () => {
     const ctx = document.getElementById('voteChart').getContext('2d');
 
@@ -32,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     datasets: [{
                         label: '票數',
                         data: data,
-                        backgroundColor: '#4CAF50',
+                        backgroundColor: colors.slice(0, data.length),
                         borderColor: '#45a049',
                         borderWidth: 1
                     }]
