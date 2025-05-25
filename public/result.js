@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let chart;
 
-    const votingEnd = new Date("2025-06-02T13:15:00+08:00");
+    const votingEnd = new Date("2025-05-25T18:40:00+08:00");
     const timezone = "Asia/Taipei";
     
     function updateCountdown() {
