@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     voteBtn.addEventListener('click', async () => {
+        voteBtn.disabled = true;  // 點下立即禁用
         try {
             const response = await fetch('/vote', {
                 method: 'POST',
@@ -25,10 +26,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 setTimeout(() => window.close(), 2000);
             } else {
                 messageDiv.textContent = '投票失敗，請重試。';
+                voteBtn.disabled = false;
             }
         } catch (error) {
             console.error('Error:', error);
             messageDiv.textContent = '投票時發生錯誤。';
+            voteBtn.disabled = false;
         }
     });
 });
