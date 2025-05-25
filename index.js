@@ -77,6 +77,18 @@ app.post('/votes/reset', async (req, res) => {
   }
 });
 
+app.post('/votes/reseed', async (req, res) => {
+  try {
+    await pool.query('TRUNCATE booths');
+    const values = Array.from({ length: 166 }, (_, i) => `(${i + 40}, 0)`).join(',');
+    await pool.query(`INSERT INTO booths (booth_id, votes) VALUES ${values}`);
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
+});
+
 // 新增獲取票數的路由
 app.get('/votes/:id', async (req, res) => {
     const { id } = req.params;
