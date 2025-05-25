@@ -28,25 +28,31 @@ app.get('/reset', (req, res) => {
 
 // 投票處理
 app.post('/vote', async (req, res) => {
-  const { boothId } = req.body;
-
-  // ✅ 加入這段：限制時間範圍（台灣時間 UTC+8）
+  let boothId = parseInt(req.body.boothId);  // 強制轉為數字
+  if (isNaN(boothId)) {
+    return res.status(400).json({ success: false, message: '無效的 boothId' });
+  }
+// ✅ 加入這段：限制時間範圍（台灣時間 UTC+8）
   const now = new Date();
   const taiwanNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
 
-  const startTime = new Date("2025-05-25T18:00:00+08:00");
-  const endTime = new Date("2025-05-25T18:15:00+08:00");
+  const startTime = new Date("2025-05-15T18:15:00+08:00");
+  const endTime = new Date("2025-06-02T18:20:00+08:00");
 
   if (taiwanNow < startTime || taiwanNow > endTime) {
     return res.status(403).json({ success: false, message: '不在投票時間內' });
   }
 
   try {
-    await pool.query('UPDATE booths SET votes = votes + 1 WHERE booth_id = $1', [boothId]);
+    const result = await pool.query('UPDATE booths SET votes = votes + 1 WHERE booth_id = $1', [boothId]);
+    if (result.rowCount === 0) {
+      console.warn('投票失敗：boothId 不存在或格式錯誤', boothId);
+      return res.status(404).json({ success: false, message: '找不到攤位' });
+    }
     res.json({ success: true });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false });
+    console.error('資料庫更新錯誤', error);
+    res.status(500).json({ success: false, message: '資料庫錯誤' });
   }
 });
 
