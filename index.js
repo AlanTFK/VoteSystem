@@ -44,7 +44,8 @@ async function initDB() {
     const check = await pool.query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'booths')");
     if (!check.rows[0].exists) {
       await pool.query('CREATE TABLE booths (booth_id INTEGER PRIMARY KEY, votes INTEGER DEFAULT 0)');
-      const values = Array.from({length: 200}, (_, i) => `(${i+1}, 0)`).join(',');
+      // const values = Array.from({length: 200}, (_, i) => `(${i+1}, 0)`).join(',');
+      const values = Array.from({length: 166}, (_, i) => `(${i + 40}, 0)`).join(',');
       await pool.query(`INSERT INTO booths (booth_id, votes) VALUES ${values}`);
       console.log('Database initialized');
     }

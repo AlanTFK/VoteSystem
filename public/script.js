@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const voteCount = document.getElementById('voteCount');
 
     // 顯示攤位編號
-    boothNumber.textContent = boothId;
+    // boothNumber.textContent = boothId;
+    boothNumber.textContent = boothId.toString().padStart(3, '0');
+
 
     voteBtn.addEventListener('click', async () => {
         try {
