@@ -1,3 +1,12 @@
+// 判斷是否在投票時間內（台灣時間）
+function isWithinVotingTime() {
+    const now = new Date();
+    const taiwanNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
+    const start = new Date("2025-06-02T10:00:00+08:00");
+    const end = new Date("2025-06-02T13:15:00+08:00");
+    return taiwanNow >= start && taiwanNow <= end;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const boothId = window.location.pathname.split('/')[2];
     const voteBtn = document.getElementById('voteBtn');
@@ -11,6 +20,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     voteBtn.addEventListener('click', async () => {
+        if (!isWithinVotingTime()) {
+            messageDiv.textContent = '目前不是開放投票時間';
+            return;
+        }
         voteBtn.disabled = true;  // 點下立即禁用
         try {
             const response = await fetch('/vote', {
