@@ -36,8 +36,8 @@ app.post('/vote', async (req, res) => {
   const now = new Date();
   const taiwanNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
 
-  const startTime = new Date("2025-05-26T18:40:00+08:00");
-  const endTime = new Date("2025-05-026T18:45:00+08:00");
+  const startTime = new Date("2025-06-02T10:00:00+08:00");
+  const endTime = new Date("2025-06-02T13:10:00+08:00");
 
   if (taiwanNow < startTime || taiwanNow > endTime) {
     return res.status(403).json({ success: false, message: '不在投票時間內' });

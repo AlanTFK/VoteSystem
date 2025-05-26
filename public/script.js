@@ -2,8 +2,8 @@
 function isWithinVotingTime() {
     const now = new Date();
     const taiwanNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
-    const start = new Date("2025-05-26T15:40:00+08:00");
-    const end = new Date("2025-05-26T15:45:00+08:00");
+    const start = new Date("2025-06-02T10:00:00+08:00");
+    const end = new Date("2025-06-02T13:10:00+08:00");
     return taiwanNow >= start && taiwanNow <= end;
 }
 
