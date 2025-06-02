@@ -36,11 +36,14 @@ app.post('/vote', async (req, res) => {
   const now = new Date();
   const taiwanNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
   const startTime = new Date("2025-06-01T00:00:00+08:00");  // 提早一天
-  const endTime = new Date("2025-06-03T00:00:00+08:00");    // 延後一天
+  const endTime = new Date("2025-06-02T13:10:00+08:00");    // 延後一天
 
 
   if (taiwanNow < startTime || taiwanNow > endTime) {
-    return res.status(403).json({ success: false, message: '不在投票時間內' });
+    return res.status(403).json({
+    success: false,
+    message: `目前時間 ${taiwanNow.toLocaleString("zh-TW")} 不在可投票時段（${startTime.toLocaleString("zh-TW")} ～ ${endTime.toLocaleString("zh-TW")}）`
+    });
   }
 
   try {
